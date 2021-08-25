@@ -9,18 +9,21 @@ library(tidyverse)
 library(here)
 library(janitor)
 library(ggExtra)
+library(lubridate)
 ```
 
 ## Read in the data from the Duck
+## Clean names with Janitor package
+## Tell R NA values are read as -9999
 
 ```{r}
-Q1 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca1-Bisley.csv" ), na = "-9999") %>% clean_names()
+Q1 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca1-Bisley.csv" ), na = "-9999") %>% clean_names() %>% mutate(sample_date = mdy(sample_date))
 
-Q2 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca2-Bisley.csv"), na = "-9999") %>% clean_names()
+Q2 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca2-Bisley.csv"), na = "-9999") %>% clean_names() %>% mutate(sample_date = mdy(sample_date))
 
-Q3 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca3-Bisley.csv"), na = "-9999") %>% clean_names()
+Q3 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca3-Bisley.csv"), na = "-9999") %>% clean_names() %>% mutate(sample_date = mdy(sample_date))
 
-RPM <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "RioMameyesPuenteRoto.csv"), na = "-9999") %>% clean_names()
+RPM <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "RioMameyesPuenteRoto.csv"), na = "-9999") %>% clean_names() %>% mutate(sample_date = mdy(sample_date))
 
 ```
 
