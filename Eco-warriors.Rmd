@@ -65,3 +65,32 @@ combined_site_cd <- rbind(Q3.1, RPM.1)
 combined_sites <- rbind(combined_site_ab, combined_site_cd)
 ```
 
+## Take summary statistics so we can plot one point per year for each variable
+
+```{r}
+## summary stats!!
+```
+
+## plot the data!
+
+```{r}
+
+
+ggplot(data = combined_sites, aes(x = sample_date, y = k)) +
+  geom_point(aes(color = sample_id)) +
+  labs(x = "Year",
+       y = "K (mg/l",
+       title = "Potassium levels over time")
+
+ggplot(data = combined_sites, aes(x = sample_date, y = no3)) +
+  geom_line(aes(line = sample_id)) +
+  labs(x = "Year",
+       y = "Nitrate (ug/l)",
+       title = "Nitrate levels over time")
+
+
+
+
+
+```
+
