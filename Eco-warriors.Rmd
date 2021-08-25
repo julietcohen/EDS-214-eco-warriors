@@ -1,0 +1,28 @@
+---
+title: "eco-warriors"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(janitor)
+library(ggExtra)
+```
+## Read in the data from the Duck
+```{r}
+Q1 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca1-Bisley.csv" ))
+
+Q2 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca2-Bisley.csv"))
+
+Q3 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca3-Bisley.csv"))
+
+RPM <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "RioMameyesPuenteRoto.csv"))
+
+```
+
+```{r}
+
+```
+
