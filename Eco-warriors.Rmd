@@ -57,3 +57,11 @@ RPM.1 <- RPM.1 %>% mutate(sample_date = lubridate::year(sample_date))
 
 
 # Binding the datasets together into one data frame
+
+```{r}
+combined_site_ab <- rbind(Q1.1, Q2.1)
+combined_site_cd <- rbind(Q3.1, RPM.1)
+
+combined_sites <- rbind(combined_site_ab, combined_site_cd)
+```
+
