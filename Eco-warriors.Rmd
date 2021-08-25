@@ -19,7 +19,7 @@ library(lubridate)
 ```{r}
 Q1 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca1-Bisley.csv" ), na = "-9999") %>% clean_names() %>% mutate(sample_date = mdy(sample_date))
 
-Q2 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca2-Bisley.csv"), na = "-9999") %>% clean_names() %>% mutate(sample_date = mdy(sample_date))
+Q2 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca2-Bisley.csv"), na = "-9999") %>% clean_names() %>% mutate(sample_date = mdy_hm(sample_date))
 
 Q3 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca3-Bisley.csv"), na = "-9999") %>% clean_names() %>% mutate(sample_date = mdy(sample_date))
 
@@ -44,3 +44,16 @@ RPM.1 <- RPM %>%
 
 ```
 
+# pulling out the year from the sample_date column
+```{r}
+Q1.1 <- Q1.1 %>% mutate(sample_date = lubridate::year(sample_date))
+Q2.1 <- Q2.1 %>% mutate(sample_date = lubridate::year(sample_date))
+Q3.1 <- Q3.1 %>% mutate(sample_date = lubridate::year(sample_date))
+RPM.1 <- RPM.1 %>% mutate(sample_date = lubridate::year(sample_date)) 
+
+
+
+```
+
+
+# Binding the datasets together into one data frame
