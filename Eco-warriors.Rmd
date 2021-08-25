@@ -12,17 +12,17 @@ library(ggExtra)
 ```
 ## Read in the data from the Duck
 ```{r}
-Q1 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca1-Bisley.csv" ))
+Q1 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca1-Bisley.csv" )) %>% clean_names()
 
-Q2 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca2-Bisley.csv"))
+Q2 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca2-Bisley.csv")) %>% clean_names()
 
-Q3 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca3-Bisley.csv"))
+Q3 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca3-Bisley.csv")) %>% clean_names()
 
-RPM <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "RioMameyesPuenteRoto.csv"))
+RPM <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "RioMameyesPuenteRoto.csv")) %>% clean_names()
 
 ```
 
 ```{r}
-##test comment
+
 ```
 
