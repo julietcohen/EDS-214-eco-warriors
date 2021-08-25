@@ -26,8 +26,21 @@ Q3 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenc
 RPM <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "RioMameyesPuenteRoto.csv"), na = "-9999") %>% clean_names() %>% mutate(sample_date = mdy(sample_date))
 
 ```
-
+## select columns
 ```{r}
+
+Q1.1 <- Q1 %>% 
+  select(sample_id, sample_date, k, no3)
+
+Q2.1 <- Q2 %>% 
+  select(sample_id, sample_date, k, no3)
+
+Q3.1 <- Q3 %>% 
+  select(sample_id, sample_date, k, no3)
+
+RPM.1 <- RPM %>% 
+  select(sample_id, sample_date, k, no3)
+
 
 ```
 
