@@ -96,13 +96,11 @@ k_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean
        title = "Potassium and nitrate levels over time",
        color = "Site",
        linetype = "Site") +
-  scale_x_discrete(position = "top") +
   theme_classic() + 
+  scale_x_continuous(position = "top") +
   scale_color_viridis_d(option = "H") +
-  theme(panel.border = element_rect(fill = NA, size = 1),
-        plot.margin = unit(c(0, 0, 0, 0), "cm"))
-  
-
+  theme(plot.margin = unit(c(0, 0, 0.0001, 0), "inches")) 
+k_graph
 
 # Nitrate graph
 no3_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean_no3)) +
@@ -115,9 +113,12 @@ no3_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = me
   theme_classic() +
   scale_color_viridis_d(option = "H") +
   theme(legend.position = "none",
-        axis.ticks.x = element_blank(),
-        panel.border = element_rect(fill = NA, size = 1),
-        plot.margin = unit(c(0, 0, 0, 0), "cm")
+        axis.title.x.bottom = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x.bottom = element_blank(),
+        axis.line.x.top = element_line(),
+        axis.ticks.x.top = element_line(),
+        plot.margin = unit(c(0.0001, 0, 0, 0), "inches")
         ) +
   scale_y_continuous(limits = c(0,400))
   
