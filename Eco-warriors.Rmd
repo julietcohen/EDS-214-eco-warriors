@@ -100,7 +100,8 @@ k_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean
   scale_x_continuous(position = "top") +
   scale_color_viridis_d(option = "H") +
   theme(plot.margin = unit(c(0, 0, 0.0001, 0), "inches"),
-        panel.grid.major.x = element_line()) 
+        panel.grid.major.x = element_line(),
+        legend.position = "none") 
 k_graph
 
 # Nitrate graph
@@ -122,7 +123,11 @@ no3_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = me
         panel.grid.major.x = element_line()) +
   scale_y_continuous(limits = c(0,400))
   
-k_graph / no3_graph
+#k_graph / no3_graph
+
+#grid_arrange_shared_legend(p1, p2, p3, ncol = 1, nrow = 2, position='bottom')
+combined <- k_graph / no3_graph & theme(legend.position = "right")
+combined + plot_layout(guides = "collect")
 
 ```
 
