@@ -114,12 +114,10 @@ no3_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = me
   scale_color_viridis_d(option = "H") +
   theme(legend.position = "none",
         axis.title.x.bottom = element_blank(),
-        axis.text.x = element_blank(),
         axis.ticks.x.bottom = element_blank(),
         axis.line.x.top = element_line(),
         axis.ticks.x.top = element_line(),
-        plot.margin = unit(c(0.0001, 0, 0, 0), "inches")
-        ) +
+        plot.margin = unit(c(0.0001, 0, 0, 0), "inches")) +
   scale_y_continuous(limits = c(0,400))
   
 k_graph / no3_graph
