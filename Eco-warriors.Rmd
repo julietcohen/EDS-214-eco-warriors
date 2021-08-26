@@ -79,9 +79,9 @@ combined_sites <- rbind(combined_site_ab, combined_site_cd)
 
 ```{r}
 combined_sites_summarize <- combined_sites %>% 
-  group_by(sample_id, sample_month) %>% 
-  summarize(mean_k = mean(k), na.rm = TRUE,
-            mean_no3 = mean(no3), na.rm = TRUE)
+  group_by(sample_id, sample_year, sample_month) %>% 
+  summarize(mean_k = mean(k, na.rm = TRUE),
+            mean_no3 = mean(no3, na.rm = TRUE))
 ```
 
 ## plot the data!
@@ -89,8 +89,8 @@ combined_sites_summarize <- combined_sites %>%
 ```{r}
 
 
-ggplot(data = combined_sites, aes(x = sample_date, y = k)) +
-  geom_point(aes(color = sample_id)) +
+ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean_k)) +
+  geom_line(aes(color = sample_id)) +
   labs(x = "Year",
        y = "K (mg/l",
        title = "Potassium levels over time")
