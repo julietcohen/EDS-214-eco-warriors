@@ -10,6 +10,7 @@ library(here)
 library(janitor)
 library(ggExtra)
 library(lubridate)
+library(patchwork)
 ```
 
 ## Read in the data from the Duck
@@ -87,23 +88,34 @@ combined_sites_summarize <- combined_sites %>%
 ## plot the data!
 
 ```{r}
-
-ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean_k)) +
-  geom_line(aes(color = sample_id)) +
-  labs(x = "Year",
+# Potassium graph 
+par(mar = c(0.5, 0.5, 0.2, 0.2))
+k_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean_k)) +
+  geom_line(aes(color = sample_id, linetype = sample_id)) +
+  labs(x = "",
        y = "K (mg/l)",
-       title = "Potassium levels over time") +
-  theme_classic()
+       title = "Potassium and nitrate levels over time",
+       color = "Site",
+       linetype = "Site") +
+  theme_classic() + 
+  scale_color_viridis_d(option = "H") +
+  theme(axis.text.x = element_blank()) 
 
-ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean_no3)) +
-  geom_line(aes(color = sample_id)) +
+
+# Nitrate graph
+par(mar = c(0.5, 0.5, 0.2, 0.2))
+no3_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean_no3)) +
+  geom_line(aes(color = sample_id, linetype = sample_id)) +
   labs(x = "Year",
        y = "Nitrate (ug/l)",
-       title = "Nitrate levels over time") +
-  theme_classic()
+       title = "",
+       color = "Site",
+       linetype = "Site") +
+  theme_classic() +
+  scale_color_viridis_d(option = "H") +
+  theme(legend.position = "none")
   
-
-
+k_graph / no3_graph
 
 ```
 
