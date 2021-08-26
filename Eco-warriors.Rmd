@@ -89,31 +89,37 @@ combined_sites_summarize <- combined_sites %>%
 
 ```{r}
 # Potassium graph 
-par(mar = c(0.5, 0.5, 0.2, 0.2))
 k_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean_k)) +
   geom_line(aes(color = sample_id, linetype = sample_id)) +
-  labs(x = "",
+  labs(x = "Year",
        y = "K (mg/l)",
        title = "Potassium and nitrate levels over time",
        color = "Site",
        linetype = "Site") +
+  scale_x_discrete(position = "top") +
   theme_classic() + 
   scale_color_viridis_d(option = "H") +
-  theme(axis.text.x = element_blank()) 
+  theme(panel.border = element_rect(fill = NA, size = 1),
+        plot.margin = unit(c(0, 0, 0, 0), "cm"))
+  
 
 
 # Nitrate graph
-par(mar = c(0.5, 0.5, 0.2, 0.2))
 no3_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean_no3)) +
   geom_line(aes(color = sample_id, linetype = sample_id)) +
-  labs(x = "Year",
+  labs(x = element_blank(),
        y = "Nitrate (ug/l)",
-       title = "",
+       title = element_blank(),
        color = "Site",
        linetype = "Site") +
   theme_classic() +
   scale_color_viridis_d(option = "H") +
-  theme(legend.position = "none")
+  theme(legend.position = "none",
+        axis.ticks.x = element_blank(),
+        panel.border = element_rect(fill = NA, size = 1),
+        plot.margin = unit(c(0, 0, 0, 0), "cm")
+        ) +
+  scale_y_continuous(limits = c(0,400))
   
 k_graph / no3_graph
 
