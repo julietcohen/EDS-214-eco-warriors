@@ -1,6 +1,9 @@
 ---
 title: "Eco-Warriors"
-output: html_document
+output: 
+  html_document: 
+    code_folding: hide
+
 ---
 
 ```{r setup, class.source = 'fold-hide'}
