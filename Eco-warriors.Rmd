@@ -18,28 +18,55 @@ library(patchwork)
 ## Tell R NA values are read as -9999
 
 ```{r}
-Q1 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca1-Bisley.csv" ), na = "-9999") %>% clean_names() %>% mutate(sample_date = mdy(sample_date))
+Q1 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca1-Bisley.csv" ), na = "-9999") %>% 
+  
+  clean_names() %>% 
+  
+  mutate(sample_date = mdy(sample_date))
 
-Q2 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca2-Bisley.csv"), na = "-9999") %>% clean_names() %>% mutate(sample_date = mdy_hm(sample_date))
 
-Q3 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca3-Bisley.csv"), na = "-9999") %>% clean_names() %>% mutate(sample_date = mdy(sample_date))
+Q2 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca2-Bisley.csv"), na = "-9999") %>% 
+  
+  clean_names() %>% 
+  
+  mutate(sample_date = mdy_hm(sample_date))
 
-RPM <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "RioMameyesPuenteRoto.csv"), na = "-9999") %>% clean_names() %>% mutate(sample_date = mdy(sample_date))
+
+Q3 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca3-Bisley.csv"), na = "-9999") %>% 
+  
+  clean_names() %>% 
+  
+  mutate(sample_date = mdy(sample_date))
+
+
+
+RPM <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "RioMameyesPuenteRoto.csv"), na = "-9999") %>% 
+  
+  clean_names() %>% 
+  
+  mutate(sample_date = mdy(sample_date))
 
 ```
 ## select columns
 ```{r}
 
 Q1.1 <- Q1 %>% 
+  
   select(sample_id, sample_date, k, no3)
+
 
 Q2.1 <- Q2 %>% 
+  
   select(sample_id, sample_date, k, no3)
+
 
 Q3.1 <- Q3 %>% 
+  
   select(sample_id, sample_date, k, no3)
 
+
 RPM.1 <- RPM %>% 
+  
   select(sample_id, sample_date, k, no3)
 
 
@@ -48,20 +75,30 @@ RPM.1 <- RPM %>%
 # pulling out the year from the sample_date column
 ```{r}
 Q1.1 <- Q1.1 %>%
+  
   mutate(sample_year = lubridate::year(sample_date)) %>% 
+  
   mutate(sample_month = lubridate::month(sample_date))
+
 
 Q2.1 <- Q2.1 %>%
+  
   mutate(sample_year = lubridate::year(sample_date)) %>% 
+  
   mutate(sample_month = lubridate::month(sample_date))
 
+
 Q3.1 <- Q3.1 %>%
+  
   mutate(sample_year = lubridate::year(sample_date)) %>% 
+  
   mutate(sample_month = lubridate::month(sample_date))
 
 
 RPM.1 <- RPM.1 %>%
+  
   mutate(sample_year = lubridate::year(sample_date)) %>% 
+  
   mutate(sample_month = lubridate::month(sample_date))
 
 ```
@@ -71,6 +108,7 @@ RPM.1 <- RPM.1 %>%
 
 ```{r}
 combined_site_ab <- rbind(Q1.1, Q2.1)
+
 combined_site_cd <- rbind(Q3.1, RPM.1)
 
 combined_sites <- rbind(combined_site_ab, combined_site_cd)
@@ -80,17 +118,30 @@ combined_sites <- rbind(combined_site_ab, combined_site_cd)
 
 ```{r}
 combined_sites_summarize <- combined_sites %>% 
+  
   group_by(sample_id, sample_year) %>% 
+  
   summarize(mean_k = mean(k, na.rm = TRUE),
             mean_no3 = mean(no3, na.rm = TRUE))
 
-combined_sites_summarize$sample_id <- str_replace(combined_sites_summarize$sample_id, "MPR", "Puente Roto Mameyes")
 
-combined_sites_summarize$sample_id <- str_replace(combined_sites_summarize$sample_id, "Q1", "Quebrada uno-Bisley")
+combined_sites_summarize$sample_id <- str_replace(combined_sites_summarize$sample_id, "MPR",
+                                                  "Puente Roto Mameyes")
 
-combined_sites_summarize$sample_id <- str_replace(combined_sites_summarize$sample_id, "Q2", "Quebrada dos-Bisley")
+combined_sites_summarize$sample_id <- str_replace(combined_sites_summarize$sample_id, "Q1",
+                                                  "Quebrada uno-Bisley")
 
-combined_sites_summarize$sample_id <- str_replace(combined_sites_summarize$sample_id, "Q3", "Quebrada tres-Bisley")
+combined_sites_summarize$sample_id <- str_replace(combined_sites_summarize$sample_id, "Q2",
+                                                  "Quebrada dos-Bisley")
+
+combined_sites_summarize$sample_id <- str_replace(combined_sites_summarize$sample_id, "Q3",
+                                                  "Quebrada tres-Bisley")
+
+combined_sites_summarize$sample_id <- factor(combined_sites_summarize$sample_id, 
+                                              levels = c("Quebrada dos-Bisley",
+                                                        "Quebrada uno-Bisley",
+                                                        "Quebrada tres-Bisley", 
+                                                        "Puente Roto Mameyes"))
 
 ```
 
@@ -113,7 +164,7 @@ k_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean
         panel.grid.major.x = element_line(),
         legend.position = "none") 
 
-k_graph
+
 
 # Nitrate graph
 no3_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean_no3)) +
@@ -127,16 +178,15 @@ no3_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = me
   scale_color_viridis_d(option = "H") +
   theme(legend.position = "none",
         axis.title.x.bottom = element_blank(),
-        #axis.ticks.x.bottom = element_blank(),
         axis.line.x.top = element_line(),
         axis.ticks.x.top = element_line(),
         plot.margin = unit(c(0.0001, 0, 0, 0), "inches"),
         panel.grid.major.x = element_line()) +
   scale_y_continuous(limits = c(0,400)) 
   
-#k_graph / no3_graph
 
-#grid_arrange_shared_legend(p1, p2, p3, ncol = 1, nrow = 2, position='bottom')
+
+
 combined <- k_graph / no3_graph & theme(legend.position = "right")
 combined + plot_layout(guides = "collect")
 
