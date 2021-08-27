@@ -6,8 +6,8 @@ output:
 
 ---
 
-```{r setup, class.source = 'fold-hide'}
-knitr::opts_chunk$set(echo = FALSE)
+```{r setup, include = FALSE, collapse = TRUE, class.source = 'fold-hide'}
+knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(here)
 library(janitor)
@@ -120,7 +120,8 @@ combined_sites <- rbind(combined_site_ab, combined_site_cd)
 
 ## Take summary statistics so we can plot one point per year for each variable
 ## Replace abbreviated site names with full name
-```{r}
+
+```{r, warning = FALSE, message = FALSE}
 combined_sites_summarize <- combined_sites %>% 
   
   group_by(sample_id, sample_year) %>% 

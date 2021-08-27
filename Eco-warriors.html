@@ -180,32 +180,6 @@ pre code {
 </div>
 
 
-<pre class="r fold-hide"><code>knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)</code></pre>
-<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-## ✓ tibble  3.1.3     ✓ dplyr   1.0.7
-## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
-## ✓ readr   2.0.1     ✓ forcats 0.5.1</code></pre>
-<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r fold-hide"><code>library(here)</code></pre>
-<pre><code>## here() starts at /Users/eisaguirre/github/EDS-214-eco-warriors</code></pre>
-<pre class="r fold-hide"><code>library(janitor)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;janitor&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     chisq.test, fisher.test</code></pre>
-<pre class="r fold-hide"><code>library(ggExtra)
-library(lubridate)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;lubridate&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     date, intersect, setdiff, union</code></pre>
-<pre class="r fold-hide"><code>library(patchwork)</code></pre>
 <div id="read-in-the-data-from-the-duck" class="section level2">
 <h2>Read in the data from THE Duck</h2>
 </div>
@@ -214,11 +188,41 @@ library(lubridate)</code></pre>
 </div>
 <div id="tell-r-na-values-are-read-as--9999" class="section level2">
 <h2>Tell R NA values are read as -9999</h2>
+<pre class="r"><code>Q1 &lt;- read.csv(here(&quot;/courses&quot;, &quot;EDS214&quot;, &quot;eco-warriors&quot;, &quot;data&quot;, &quot;QuebradaCuenca1-Bisley.csv&quot; ), 
+               na = &quot;-9999&quot;) %&gt;% 
+  
+  clean_names() %&gt;% 
+  
+  mutate(sample_date = mdy(sample_date))
+
+
+Q2 &lt;- read.csv(here(&quot;/courses&quot;, &quot;EDS214&quot;, &quot;eco-warriors&quot;, &quot;data&quot;, &quot;QuebradaCuenca2-Bisley.csv&quot;), 
+               na = &quot;-9999&quot;) %&gt;% 
+  
+  clean_names() %&gt;% 
+  
+  mutate(sample_date = mdy_hm(sample_date))
+
+
+Q3 &lt;- read.csv(here(&quot;/courses&quot;, &quot;EDS214&quot;, &quot;eco-warriors&quot;, &quot;data&quot;, &quot;QuebradaCuenca3-Bisley.csv&quot;), 
+               na = &quot;-9999&quot;) %&gt;% 
+  
+  clean_names() %&gt;% 
+  
+  mutate(sample_date = mdy(sample_date))
+
+
+
+RPM &lt;- read.csv(here(&quot;/courses&quot;, &quot;EDS214&quot;, &quot;eco-warriors&quot;, &quot;data&quot;, &quot;RioMameyesPuenteRoto.csv&quot;), 
+                na = &quot;-9999&quot;) %&gt;% 
+  
+  clean_names() %&gt;% 
+  
+  mutate(sample_date = mdy(sample_date))</code></pre>
 </div>
 <div id="select-columns-for-sample_id-sample_date-k-no3" class="section level2">
 <h2>select columns for sample_id, sample_date, k, no3</h2>
-<pre class="r"><code>
-Q1.1 &lt;- Q1 %&gt;% 
+<pre class="r"><code>Q1.1 &lt;- Q1 %&gt;% 
   
   select(sample_id, sample_date, k, no3)
 
@@ -235,8 +239,7 @@ Q3.1 &lt;- Q3 %&gt;%
 
 RPM.1 &lt;- RPM %&gt;% 
   
-  select(sample_id, sample_date, k, no3)
-</code></pre>
+  select(sample_id, sample_date, k, no3)</code></pre>
 </div>
 <div id="pulling-out-the-year-from-the-sample_date-column" class="section level1">
 <h1>pulling out the year from the sample_date column</h1>
@@ -280,7 +283,6 @@ combined_sites &lt;- rbind(combined_site_ab, combined_site_cd)</code></pre>
   
   summarize(mean_k = mean(k, na.rm = TRUE),
             mean_no3 = mean(no3, na.rm = TRUE))
-## `summarise()` has grouped output by &#39;sample_id&#39;. You can override using the `.groups` argument.
 
 
 combined_sites_summarize$sample_id &lt;- str_replace(combined_sites_summarize$sample_id, 
@@ -307,6 +309,9 @@ combined_sites_summarize$sample_id &lt;- factor(combined_sites_summarize$sample_
 </div>
 <div id="make-a-sexy-figure" class="section level2">
 <h2>Make a sexy figure!</h2>
+<p>Stream water samples were collected weekly from eight sites within the Luquillo Mountains in Puerto Rico from 1986 - 2012. This data reveals how stream chemistry responds to a major hurricane event. The water’s chemical composition from four selected sites graphed over time reveals dramatic fluctuations in potassium and nitrate levels after Hurricane Hugo in 1989.</p>
+<p>Potassium (measured in mg/l) at all sites increased steadily from 1986 to 1989, and spiked dramatically for two years following Hurricane Hugo in 1989. This which is likely due to increased quantities of plant debris in the stream systems as a result of the hurricane. The sampling site at Quebrada dos-Bisley saw the most extreme increase in potassium levels, peaking in 1993. The sampling site at Puente Roto Mameyes maintained the the most stable potassium levels during this influx period. In the years following 1993, we see a gradual decline at all sites over time with minor fluctuations from 2000 - 2005.</p>
+<p>Nitrate levels (measured in ug/l) at all sites remained relatively stable from 1986 to 1990, but increased dramatically following Hurricane Hugo in 1989. This is likely due to the increased plant debris that caused a similar increase in potassium levels. Data was unavailable in the years immediately following 1993, but beginning in 1996 we see the nitrate levels are steading decreasing through 2010.</p>
 <pre class="r"><code># Potassium graph 
 k_graph &lt;- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean_k)) +
   geom_line(aes(color = sample_id, linetype = sample_id)) +
