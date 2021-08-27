@@ -7,7 +7,7 @@ output:
 ---
 
 ```{r setup, class.source = 'fold-hide'}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(here)
 library(janitor)
@@ -20,7 +20,7 @@ library(patchwork)
 ## Clean names with Janitor package
 ## Tell R NA values are read as -9999
 
-```{r, class.source = 'fold-hide', include=FALSE}
+```{r}
 Q1 <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "QuebradaCuenca1-Bisley.csv" ), 
                na = "-9999") %>% 
   
@@ -55,8 +55,9 @@ RPM <- read.csv(here("/courses", "EDS214", "eco-warriors", "data", "RioMameyesPu
 
 ```
 
+
 ## select columns for sample_id,  sample_date, k, no3
-```{r, collapse=T}
+```{r}
 
 Q1.1 <- Q1 %>% 
   
@@ -81,7 +82,7 @@ RPM.1 <- RPM %>%
 ```
 
 # pulling out the year from the sample_date column
-```{r, collapse=T}
+```{r}
 Q1.1 <- Q1.1 %>%
   
   mutate(sample_year = lubridate::year(sample_date)) 
@@ -109,7 +110,7 @@ RPM.1 <- RPM.1 %>%
 
 # Binding the datasets together into one data frame
 
-```{r, collapse=T}
+```{r}
 combined_site_ab <- rbind(Q1.1, Q2.1)
 
 combined_site_cd <- rbind(Q3.1, RPM.1)
@@ -119,7 +120,7 @@ combined_sites <- rbind(combined_site_ab, combined_site_cd)
 
 ## Take summary statistics so we can plot one point per year for each variable
 ## Replace abbreviated site names with full name
-```{r, collapse=T}
+```{r}
 combined_sites_summarize <- combined_sites %>% 
   
   group_by(sample_id, sample_year) %>% 
@@ -154,7 +155,13 @@ combined_sites_summarize$sample_id <- factor(combined_sites_summarize$sample_id,
 
 ## Make a sexy figure!
 
-```{r, collapse = T, fig.align = 'center', fig.width = 10}
+Stream water samples were collected weekly from eight sites within the Luquillo Mountains in Puerto Rico from 1986 - 2012. This data reveals how stream chemistry responds to a major hurricane event. The water's chemical composition from four selected sites graphed over time reveals dramatic fluctuations in potassium and nitrate levels after Hurricane Hugo in 1989.
+
+Potassium (measured in mg/l) at all sites increased steadily from 1986 to 1989, and spiked dramatically for two years following Hurricane Hugo in 1989. This which is likely due to increased quantities of plant debris in the stream systems as a result of the hurricane. The sampling site at Quebrada dos-Bisley saw the most extreme increase in potassium levels, peaking in 1993. The sampling site at Puente Roto Mameyes maintained the the most stable potassium levels during this influx period. In the years following 1993, we see a gradual decline at all sites over time with minor fluctuations from 2000 - 2005.
+
+Nitrate levels (measured in ug/l) at all sites remained relatively stable from 1986 to 1990, but increased dramatically following Hurricane Hugo in 1989. This is likely due to the increased plant debris that caused a similar increase in potassium levels. Data was unavailable in the years immediately following 1993, but beginning in 1996 we see the nitrate levels are steading decreasing through 2010.
+
+```{r, fig.align = 'center', fig.width = 10}
 # Potassium graph 
 k_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean_k)) +
   geom_line(aes(color = sample_id, linetype = sample_id)) +
