@@ -151,7 +151,7 @@ combined_sites_summarize$sample_id <- factor(combined_sites_summarize$sample_id,
 
 ## Make a sexy figure!
 
-```{r, collapse=T}
+```{r, collapse = T, fig.align = 'center', fig.width = 10}
 # Potassium graph 
 k_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean_k)) +
   geom_line(aes(color = sample_id, linetype = sample_id)) +
@@ -194,7 +194,7 @@ no3_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = me
   
 
 
-
+# Make combined graph with a single centered legend
 combined <- k_graph / no3_graph & theme(legend.position = "right")
 combined + plot_layout(guides = "collect")
 
