@@ -83,6 +83,15 @@ combined_sites_summarize <- combined_sites %>%
   group_by(sample_id, sample_year) %>% 
   summarize(mean_k = mean(k, na.rm = TRUE),
             mean_no3 = mean(no3, na.rm = TRUE))
+
+combined_sites_summarize$sample_id <- str_replace(combined_sites_summarize$sample_id, "MPR", "Puente Roto Mameyes")
+
+combined_sites_summarize$sample_id <- str_replace(combined_sites_summarize$sample_id, "Q1", "Quebrada uno-Bisley")
+
+combined_sites_summarize$sample_id <- str_replace(combined_sites_summarize$sample_id, "Q2", "Quebrada dos-Bisley")
+
+combined_sites_summarize$sample_id <- str_replace(combined_sites_summarize$sample_id, "Q3", "Quebrada tres-Bisley")
+
 ```
 
 ## plot the data!
@@ -93,7 +102,8 @@ k_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean
   geom_line(aes(color = sample_id, linetype = sample_id)) +
   labs(x = "Year",
        y = "K (mg/l)",
-       title = "Potassium and nitrate levels over time",
+       title = "Stream Water Potassium and Nitrate Levels",
+       subtitle = "Luquillo Mountains, Puerto Rico 1989-2012",
        color = "Site",
        linetype = "Site") +
   theme_classic() + 
@@ -102,6 +112,7 @@ k_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean
   theme(plot.margin = unit(c(0, 0, 0.0001, 0), "inches"),
         panel.grid.major.x = element_line(),
         legend.position = "none") 
+
 k_graph
 
 # Nitrate graph
@@ -121,7 +132,7 @@ no3_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = me
         axis.ticks.x.top = element_line(),
         plot.margin = unit(c(0.0001, 0, 0, 0), "inches"),
         panel.grid.major.x = element_line()) +
-  scale_y_continuous(limits = c(0,400))
+  scale_y_continuous(limits = c(0,400)) 
   
 #k_graph / no3_graph
 
