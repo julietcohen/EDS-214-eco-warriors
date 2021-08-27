@@ -153,10 +153,10 @@ combined_sites_summarize$sample_id <- factor(combined_sites_summarize$sample_id,
 
 ## Data Visualization 
 
-Created two line graphs using `ggplot()` for annual site means of Potassium and Nitrate. The data was sorted by site_id, displaying the varying levels for each site in the Luquillo Mountains. We then performed data visualization to customize our graph and make it reader friendly.
-Used patchwork library to combine the graphs 
+Created two line graphs using `ggplot()` for annual site means of Potassium and Nitrate. The data was sorted by `site_id`, displaying the varying levels for each site in the Luquillo Mountains. We then performed data visualization to customize our graph and make it reader friendly.
+Used `patchwork` library to combine the graphs. 
 
-```{r, fig.align = 'center', fig.width = 10}
+```{r, fig.align = 'center', fig.width = 10, fig.alt="Two line graphs showing the Potassium and Nitrate composition changes of four streams in the Luquillo Mountains."}
 # Potassium graph 
 k_graph <- ggplot(data = combined_sites_summarize, aes(x = sample_year, y = mean_k)) +
   geom_line(aes(color = sample_id, linetype = sample_id)) +
@@ -214,6 +214,8 @@ Potassium (measured in mg/l) at all sites increased steadily from 1986 to 1989, 
 Nitrate levels (measured in ug/l) at all sites remained relatively stable from 1986 to 1990, but increased dramatically following Hurricane Hugo in 1989. This is likely due to the increased plant debris that caused a similar increase in potassium levels. Data was unavailable in the years immediately following 1993, but beginning in 1996 we see the nitrate levels are steading decreasing through 2010.
 
 ## Citation 
+
+Link to Github Repository: https://github.com/julietcohen/EDS-214-eco-warriors
 
 McDowell, W. 2021. Chemistry of stream water from the Luquillo Mountains ver 4923052. Environmental Data Initiative. https://doi.org/10.6073/pasta/ddb4d61aea2fb18b77540e9b0c424684 (Accessed 2021-08-25)
 
