@@ -1,7 +1,15 @@
 ---
-title: "Eco-Warriors"
+title: "Hurricane Impacts on Stream Chemical Composition in the Luquillo Mountains, Puerto Rico"
+author: 
+  - Felicia Cruz 
+  - Jake Eisaguirre 
+  - Paloma Cartwright 
+  - Juliet Cohen
+date: 2021-08-27
 output: 
-  html_document: 
+  html_document:
+    toc: true 
+    toc_float: true
     code_folding: hide
 
 ---
@@ -156,11 +164,6 @@ combined_sites_summarize$sample_id <- factor(combined_sites_summarize$sample_id,
 
 ## Make a sexy figure!
 
-Stream water samples were collected weekly from eight sites within the Luquillo Mountains in Puerto Rico from 1986 - 2012. This data reveals how stream chemistry responds to a major hurricane event. The water's chemical composition from four selected sites graphed over time reveals dramatic fluctuations in potassium and nitrate levels after Hurricane Hugo in 1989.
-
-Potassium (measured in mg/l) at all sites increased steadily from 1986 to 1989, and spiked dramatically for two years following Hurricane Hugo in 1989. This which is likely due to increased quantities of plant debris in the stream systems as a result of the hurricane. The sampling site at Quebrada dos-Bisley saw the most extreme increase in potassium levels, peaking in 1993. The sampling site at Puente Roto Mameyes maintained the the most stable potassium levels during this influx period. In the years following 1993, we see a gradual decline at all sites over time with minor fluctuations from 2000 - 2005.
-
-Nitrate levels (measured in ug/l) at all sites remained relatively stable from 1986 to 1990, but increased dramatically following Hurricane Hugo in 1989. This is likely due to the increased plant debris that caused a similar increase in potassium levels. Data was unavailable in the years immediately following 1993, but beginning in 1996 we see the nitrate levels are steading decreasing through 2010.
 
 ```{r, fig.align = 'center', fig.width = 10}
 # Potassium graph 
@@ -211,3 +214,8 @@ combined + plot_layout(guides = "collect")
 
 ```
 
+Stream water samples were collected weekly from eight sites within the Luquillo Mountains in Puerto Rico from 1986 - 2012. This data reveals how stream chemistry responds to a major hurricane event. The water's chemical composition from four selected sites graphed over time reveals dramatic fluctuations in potassium and nitrate levels after Hurricane Hugo in 1989.
+
+Potassium (measured in mg/l) at all sites increased steadily from 1986 to 1989, and spiked dramatically for two years following Hurricane Hugo in 1989. This which is likely due to increased quantities of plant debris in the stream systems as a result of the hurricane. The sampling site at Quebrada dos-Bisley saw the most extreme increase in potassium levels, peaking in 1993. The sampling site at Puente Roto Mameyes maintained the the most stable potassium levels during this influx period. In the years following 1993, we see a gradual decline at all sites over time with minor fluctuations from 2000 - 2005.
+
+Nitrate levels (measured in ug/l) at all sites remained relatively stable from 1986 to 1990, but increased dramatically following Hurricane Hugo in 1989. This is likely due to the increased plant debris that caused a similar increase in potassium levels. Data was unavailable in the years immediately following 1993, but beginning in 1996 we see the nitrate levels are steading decreasing through 2010.
